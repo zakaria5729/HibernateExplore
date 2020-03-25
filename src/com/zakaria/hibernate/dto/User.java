@@ -1,25 +1,34 @@
 package com.zakaria.hibernate.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name="user_details")
-public class User {
+@Entity
+@Table(name="user_details")
+public class User implements Serializable {
 
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user_id")
-	private int userId;
+	/*
+	 * @Id @GeneratedValue(strategy = GenerationType.AUTO)
+	 * 
+	 * @Column(name="user_id") private int userId;
+	 */
+	
+	@EmbeddedId
+	private Person person;
 	
 	@Column(name="user_name")
 	private String userName;
@@ -74,18 +83,26 @@ public class User {
 		this.joinedData = joinedData;
 	}
 	
-	public int getUserId() {
-		return userId;
-	}
+	/*
+	 * public int getUserId() { return userId; }
+	 * 
+	 * public void setUserId(int userId) { this.userId = userId; }
+	 */
 	
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+	
 	
 	public String getUserName() {
 		return userName;
 	}
 	
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person id) {
+		this.person = id;
+	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}

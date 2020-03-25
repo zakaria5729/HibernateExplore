@@ -7,11 +7,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.zakaria.hibernate.dto.Address;
+import com.zakaria.hibernate.dto.Person;
 import com.zakaria.hibernate.dto.User;
 
 public class HibernateMain {
 
 	public static void main(String[] args) {
+		Person person = new Person();
+		person.setFirstName("new first name");
+		person.setLastName("new last name");
+		
 		Address homeAddress = new Address();
 		homeAddress.setCity("Dhaka");
 		homeAddress.setStreet("Shekertek");
@@ -26,6 +31,7 @@ public class HibernateMain {
 		
 		User user = new User();
 		user.setUserName("New User");
+		user.setPerson(person);
 		user.setHomeAddress(homeAddress);
 		user.setOfficeAddress(officeAddress);
 		user.setDescription("It is a long established fact that a reader");
