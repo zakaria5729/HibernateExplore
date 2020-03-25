@@ -1,106 +1,54 @@
 package com.zakaria.hibernate.dto;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="user_details")
-public class User implements Serializable {
+public class User {
 
-	/*
-	 * @Id @GeneratedValue(strategy = GenerationType.AUTO)
-	 * 
-	 * @Column(name="user_id") private int userId;
-	 */
-	
-	@EmbeddedId
-	private Person person;
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_id") private int userId;	 
 	
 	@Column(name="user_name")
 	private String userName;
-		
-	@Lob
-	private String description;
 	
-	@Temporal(TemporalType.DATE)
-	private Date joinedData;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@OrderColumn(name="address_id")
+	@JoinTable(name="user_addresses", joinColumns=@JoinColumn(name="user_id"))
+	private List<Address> listOfAddresses = new ArrayList<>();	
 	
-	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name="street", column=@Column(name="home_street")),
-		@AttributeOverride(name="city", column=@Column(name="home_cityt")),
-		@AttributeOverride(name="state", column=@Column(name="home_state")),
-		@AttributeOverride(name="pincode", column=@Column(name="home_pincode")),
-	})
-	private Address homeAddress;
-	
-	@Embedded
-	private Address officeAddress;
-	
-	public Address getHomeAddress() {
-		return homeAddress;
+	public List<Address> getListOfAddresses() {
+		return listOfAddresses;
 	}
-	
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
+
+	public void setListOfAddresses(List<Address> listOfAddresses) {
+		this.listOfAddresses = listOfAddresses;
 	}
-	
-	public Address getOfficeAddress() {
-		return officeAddress;
-	}
-	
-	public void setOfficeAddress(Address officeAddress) {
-		this.officeAddress = officeAddress;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public Date getJoinedData() {
-		return joinedData;
-	}
-	
-	public void setJoinedData(Date joinedData) {
-		this.joinedData = joinedData;
-	}
-	
-	/*
-	 * public int getUserId() { return userId; }
-	 * 
-	 * public void setUserId(int userId) { this.userId = userId; }
-	 */
-	
-	
+
+	public int getUserId() { return userId; }
+	 
+	public void setUserId(int userId) { this.userId = userId; }
 	
 	public String getUserName() {
 		return userName;
-	}
-	
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person id) {
-		this.person = id;
 	}
 
 	public void setUserName(String userName) {

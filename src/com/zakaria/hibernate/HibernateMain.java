@@ -1,22 +1,19 @@
 package com.zakaria.hibernate;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.zakaria.hibernate.dto.Address;
-import com.zakaria.hibernate.dto.Person;
 import com.zakaria.hibernate.dto.User;
 
 public class HibernateMain {
 
 	public static void main(String[] args) {
-		Person person = new Person();
-		person.setFirstName("new first name");
-		person.setLastName("new last name");
-		
 		Address homeAddress = new Address();
 		homeAddress.setCity("Dhaka");
 		homeAddress.setStreet("Shekertek");
@@ -31,11 +28,8 @@ public class HibernateMain {
 		
 		User user = new User();
 		user.setUserName("New User");
-		user.setPerson(person);
-		user.setHomeAddress(homeAddress);
-		user.setOfficeAddress(officeAddress);
-		user.setDescription("It is a long established fact that a reader");
-		user.setJoinedData(new Date());
+		user.getListOfAddresses().add(homeAddress);
+		user.getListOfAddresses().add(officeAddress); 
 		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
@@ -43,15 +37,27 @@ public class HibernateMain {
 		
 		session.save(user);
 		session.getTransaction().commit();
+		session.close();
 		
 		user = null;
 		
-		/*
-		 * user = session.get(UserDetails.class, 3);
-		 * System.out.println(user.getDescription());
-		 */
+		session = factory.openSession();
+		user = session.get(User.class, 1);
+		//session.close();
+		user.getListOfAddresses(); //lazy initialization (fetch)
 		
-		session.close();
+		System.out.println(user.getListOfAddresses().size()+"");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
-
 }
