@@ -11,24 +11,27 @@ public class HibernateMain {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setVehicleName("Truck");
 		
-		Vehicle vehicle2 = new Vehicle();
-		vehicle2.setVehicleName("Bus");
+//		Vehicle vehicle2 = new Vehicle();
+//		vehicle2.setVehicleName("Bus");
 		
 		User user = new User();
-		user.setUserName("Another");
+		user.setUserName("First User");
+		
+		User user2 = new User();
+		user2.setUserName("Second User");
 		
 		user.getVehicles().add(vehicle);
-		user.getVehicles().add(vehicle2);
-		vehicle.setUser(user);
-		vehicle2.setUser(user);
+		user2.getVehicles().add(vehicle);
+		vehicle.getUsers().add(user);
+		vehicle.getUsers().add(user2);
 		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
 		
 		session.save(user);
+		session.save(user2);
 		session.save(vehicle);
-		session.save(vehicle2);
 		
 
 //		Vehicle newVehicle = session.get(Vehicle.class, 2);
