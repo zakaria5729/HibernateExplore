@@ -1,27 +1,33 @@
 package com.zakaria.hibernate.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_details")
+@Table(name="users")
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user_id") private int userId;	 
+	@Column(name="user_id") 
+	private int userId;	 
 	
 	@Column(name="user_name")
 	private String userName;
 	
-	@OneToOne
-	@JoinColumn(name="vehicle_id")
-	private Vehicle vehicle;
+	@OneToMany(mappedBy = "user")
+//	@JoinTable(name="user_vehicle", joinColumns = @JoinColumn(name="user_id"),
+//				inverseJoinColumns = @JoinColumn(name="vehicle_id"))
+	private List<Vehicle> vehicles = new ArrayList<>();
 
 	public int getUserId() { return userId; }
 	
@@ -37,11 +43,11 @@ public class User {
 		this.userId = userId;
 	}
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public List<Vehicle> getVehicles() {
+		return vehicles;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 }
