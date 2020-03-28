@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -23,6 +26,7 @@ public class User {
 	private String userName;
 	
 	@ManyToMany(mappedBy = "users")
+	@Cascade(CascadeType.ALL)
 //	@JoinTable(name="user_vehicle", joinColumns = @JoinColumn(name="user_id"),
 //				inverseJoinColumns = @JoinColumn(name="vehicle_id"))
 	private List<Vehicle> vehicles = new ArrayList<>();
