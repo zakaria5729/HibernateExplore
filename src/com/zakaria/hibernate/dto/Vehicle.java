@@ -1,17 +1,24 @@
 package com.zakaria.hibernate.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="vehicles")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("new_vehicle")
+@DiscriminatorColumn(
+		name="vehicle_type",
+		discriminatorType = DiscriminatorType.STRING
+	)
 public class Vehicle {
 	
 	@Id @GeneratedValue
@@ -20,17 +27,6 @@ public class Vehicle {
 	
 	@Column(name="vehicle_name")
 	private String vehicleName;
-	
-	@ManyToMany
-	private List<User> users = new ArrayList<>();
-	
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 
 	public int getVehicleId() {
 		return vehicleId;

@@ -13,12 +13,14 @@
       
       <property name ="connection.pool_size">1</property>
       <property name="show_sql">true</property>
-      <property name="hbm2ddl.auto">update</property>
+      <property name="hbm2ddl.auto">create</property>
       <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
       
       <!-- List of XML mapping files -->
       <mapping class="com.zakaria.hibernate.dto.User"/>
       <mapping class="com.zakaria.hibernate.dto.Vehicle"/>
+      <mapping class="com.zakaria.hibernate.dto.TwoWheeler"/>
+      <mapping class="com.zakaria.hibernate.dto.FourWheeler"/>
       
    </session-factory>
 </hibernate-configuration>

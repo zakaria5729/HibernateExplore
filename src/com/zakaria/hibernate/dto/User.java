@@ -25,11 +25,11 @@ public class User {
 	@Column(name="user_name")
 	private String userName;
 	
-	@ManyToMany(mappedBy = "users")
-	@Cascade(CascadeType.ALL)
+//	@ManyToMany(mappedBy = "users")
+//	@Cascade(CascadeType.ALL)
 //	@JoinTable(name="user_vehicle", joinColumns = @JoinColumn(name="user_id"),
 //				inverseJoinColumns = @JoinColumn(name="vehicle_id"))
-	private List<Vehicle> vehicles = new ArrayList<>();
+	//private List<Vehicle> vehicles = new ArrayList<>();
 
 	public int getUserId() { return userId; }
 	
@@ -45,11 +45,11 @@ public class User {
 		this.userId = userId;
 	}
 
-	public List<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
+//	public List<Vehicle> getVehicles() {
+//		return vehicles;
+//	}
+//
+//	public void setVehicles(List<Vehicle> vehicles) {
+//		this.vehicles = vehicles;
+//	}
 }
