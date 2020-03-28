@@ -18,7 +18,7 @@
       
       <!-- List of XML mapping files -->
       <mapping class="com.zakaria.hibernate.dto.User"/>
-      <mapping class="com.zakaria.hibernate.dto.Address"/>
+      <mapping class="com.zakaria.hibernate.dto.Vehicle"/>
       
    </session-factory>
 </hibernate-configuration>
