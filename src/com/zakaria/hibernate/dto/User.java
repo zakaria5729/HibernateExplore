@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="users")
 //@NamedQuery(name="User.byId", query = "select userName from User where userId > :userId")
-@NamedNativeQuery(name="User.byId", query = "select user_name from users where user_id > :id")
+//@NamedNativeQuery(name="User.byId", query = "select user_name from users where user_id > :id")
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)

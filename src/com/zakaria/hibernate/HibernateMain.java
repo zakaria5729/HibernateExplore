@@ -1,7 +1,9 @@
 package com.zakaria.hibernate;
 import java.util.List;
 
-import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,16 +31,20 @@ public class HibernateMain {
 		Session session = factory.openSession();
 		session.beginTransaction();
 		
-		int id = 4;
-		
-		Query query = session.getNamedQuery("User.byId");
-		query.setParameter("id", id);
-		//query.setParameter(0, 1);
+//		int id = 4;
+//		Query query = session.getNamedQuery("User.byId");
+//		query.setParameter("id", id);
+//		query.setParameter(0, 1);
 //		query.setFirstResult(3);
 //		query.setMaxResults(10);
 		
-		List<String> users = query.getResultList();
-		users.forEach(user -> System.out.println(user));
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+		Root<User> root = criteriaQuery.from(User.class);
+		criteriaQuery.where(criteriaBuilder.ge(root.get("userId"), 3));
+		
+		List<User> users = session.createQuery(criteriaQuery).getResultList();
+		users.forEach(user -> System.out.println(user.getUserName()));
 		
 //		session.save(vehicle);
 //		session.save(bike);
