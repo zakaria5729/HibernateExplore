@@ -42,8 +42,10 @@ public class HibernateMain {
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 		Root<User> root = criteriaQuery.from(User.class);
 		criteriaQuery.where(
-			criteriaBuilder.like(root.get("userName"), "user1%"),
-			criteriaBuilder.between(root.get("userId"), 1, 50)
+			criteriaBuilder.or(
+				criteriaBuilder.between(root.get("userId"), 1, 3),
+				criteriaBuilder.between(root.get("userId"), 8, 10)
+			)
 		);
 		
 		List<User> users = session.createQuery(criteriaQuery).getResultList();
