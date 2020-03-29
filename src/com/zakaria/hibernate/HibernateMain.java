@@ -39,17 +39,14 @@ public class HibernateMain {
 //		query.setMaxResults(10);
 		
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
 		Root<User> root = criteriaQuery.from(User.class);
-		criteriaQuery.where(
-			criteriaBuilder.or(
-				criteriaBuilder.between(root.get("userId"), 1, 3),
-				criteriaBuilder.between(root.get("userId"), 8, 10)
-			)
-		);
+		criteriaQuery.select(criteriaBuilder.count(root));
+//		criteriaQuery.multiselect(root.get("userId"), criteriaBuilder.count(root));
 		
-		List<User> users = session.createQuery(criteriaQuery).getResultList();
-		users.forEach(user -> System.out.println(user.getUserName()));
+		Long users = session.createQuery(criteriaQuery).getSingleResult();
+		System.out.println(users);
+//		users.forEach(user -> System.out.println(user.getUserName()));
 		
 //		session.save(vehicle);
 //		session.save(bike);
