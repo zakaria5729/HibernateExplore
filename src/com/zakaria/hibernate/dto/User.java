@@ -1,21 +1,18 @@
 package com.zakaria.hibernate.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="users")
+//@NamedQuery(name="User.byId", query = "select userName from User where userId > :userId")
+@NamedNativeQuery(name="User.byId", query = "select user_name from users where user_id > :id")
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)

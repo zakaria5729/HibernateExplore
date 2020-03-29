@@ -31,8 +31,8 @@ public class HibernateMain {
 		
 		int id = 4;
 		
-		Query query = session.createQuery("select userName from User where userId > :userId");
-		query.setParameter("userId", id);
+		Query query = session.getNamedQuery("User.byId");
+		query.setParameter("id", id);
 		//query.setParameter(0, 1);
 //		query.setFirstResult(3);
 //		query.setMaxResults(10);
